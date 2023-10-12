@@ -37,6 +37,7 @@
 using std::cout;
 
 void MoveDisks(int count, int start, int finish, int temp);
+void MoveDisksV2(int count, int start, int finish, int temp);
 
 void MoveDisks(int count, int start, int finish, int temp) {
   if (count > 0) {
@@ -46,7 +47,22 @@ void MoveDisks(int count, int start, int finish, int temp) {
   }
 }
 
+// The last call in MoveDisks called tail of recursion
+// We can do that move than efficient way by do loop and swap start and temp.
+
+void MoveDisksV2(int count, int start, int finish, int temp) {
+  int swap;
+
+  while (count > 0) {
+    MoveDisksV2(count - 1, start, temp, finish);
+    cout << "Move disk " << count << " from " << start << " to " << finish << "\n";
+    count--;
+    swap = start;
+    start = temp;
+    temp = swap;
+  }
+}
 int main() {
-  MoveDisks(3, 1, 3, 2);
+  MoveDisksV2(3, 1, 3, 2);
   return 0;
 }
